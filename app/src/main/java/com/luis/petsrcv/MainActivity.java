@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToFavoriteActivity() {
-        Intent intent = new Intent(getBaseContext(), FavoriteActivities.class);
+        Intent intent = new Intent(getBaseContext(), FavoriteActivity.class);
         startActivity(intent);
         finish();
     }
