@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MainActivity extends AppCompatActivity {
 
     private final PetDataset dataset = PetDataset.getInstance();
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         adapter.setList(dataset.get());
         adapter.setOnFavorite(dataset::addToFavorites);
         petRcv.setAdapter(adapter);
+
+        FloatingActionButton actionButton = findViewById(R.id.fabUp);
+        actionButton.setOnClickListener(view -> petRcv.smoothScrollToPosition(0));
     }
 
     @Override
