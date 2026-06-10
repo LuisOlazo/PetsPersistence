@@ -4,6 +4,11 @@
     <string name="content_pet_image">Pet image</string>
     <string name="content_icon_bone">Rating icon</string>
 
+    <string name="label_names">Names</string>
+    <string name="label_email">Email</string>
+    <string name="label_msg">Your Message</string>
+    <string name="label_send">Send</string>
+
     <string name="menu_favorites">Favorites</string>
     <string name="menu_contact">Contact</string>
     <string name="menu_about">About</string>
