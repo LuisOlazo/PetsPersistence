@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.menu_contact) showContactForm();
+        if (item.getItemId() == R.id.menu_about) showOptionAbout();
         return super.onOptionsItemSelected(item);
     }
 
@@ -91,6 +92,15 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
         });
 
+        dialog.show();
+    }
+
+    private void showOptionAbout(){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View dialogView = inflater.inflate(R.layout.dialog_about, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
         dialog.show();
     }
 

@@ -15,4 +15,9 @@
     <string name="menu_others">Others</string>
 
     <string name="content_desc_fab">floating button up</string>
+    <string name="author">Author</string>
+    <string name="info_author_name">Luis Olazo</string>
+    <string name="info_author_email">myemail@gmail.com</string>
+    <string name="info_author_phone">+51 999666999</string>
+    <string name="info_description">Application of course 3 - Module 4 of the Specialized Program: Mobile Application Development with Android</string>
 </resources>
