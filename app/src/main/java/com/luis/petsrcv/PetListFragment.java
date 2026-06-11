@@ -15,30 +15,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PetListFragment extends Fragment {
     private final PetDataset dataset = PetDataset.getInstance();
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
 
-    public PetListFragment() {
+    private PetListFragment() {
     }
 
-    public static PetListFragment newInstance(String param1, String param2) {
-        PetListFragment fragment = new PetListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static PetListFragment newInstance() {
+        return new PetListFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -57,6 +44,5 @@ public class PetListFragment extends Fragment {
         FloatingActionButton actionButton = view.findViewById(R.id.fabUp);
         actionButton.setOnClickListener(v -> petRcv.smoothScrollToPosition(0));
     }
-
 
 }

@@ -30,10 +30,6 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    //    private final PetDataset dataset = PetDataset.getInstance();
-    private ViewPager2 viewPager;
-    private TabLayout tabLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        viewPager = findViewById(R.id.viewPager);
-        tabLayout = findViewById(R.id.tabLayout);
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, getFragmentsForViewPager());
         viewPager.setAdapter(viewPagerAdapter);
@@ -66,12 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
         mediator.attach();
-
-//        RecyclerView petRcv = findViewById(R.id.rcvPets);
-//        PetAdapter adapter = new PetAdapter();
-//        adapter.setList(dataset.get());
-//        adapter.setOnFavorite(dataset::addToFavorites);
-//        petRcv.setAdapter(adapter);
     }
 
     @Override
@@ -131,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Fragment> getFragmentsForViewPager() {
         List<Fragment> list = new ArrayList<>(2);
-        list.add(PetListFragment.newInstance("", ""));
-        list.add(PetProfileFragment.newInstance("", ""));
+        list.add(PetListFragment.newInstance());
+        list.add(PetProfileFragment.newInstance());
         return list;
     }
 
