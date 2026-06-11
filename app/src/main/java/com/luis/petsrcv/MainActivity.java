@@ -17,16 +17,22 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final PetDataset dataset = PetDataset.getInstance();
+    //    private final PetDataset dataset = PetDataset.getInstance();
+    private ViewPager2 viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +47,31 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        RecyclerView petRcv = findViewById(R.id.rcvPets);
-        PetAdapter adapter = new PetAdapter();
-        adapter.setList(dataset.get());
-        adapter.setOnFavorite(dataset::addToFavorites);
-        petRcv.setAdapter(adapter);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
 
-        FloatingActionButton actionButton = findViewById(R.id.fabUp);
-        actionButton.setOnClickListener(view -> petRcv.smoothScrollToPosition(0));
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, getFragmentsForViewPager());
+        viewPager.setAdapter(viewPagerAdapter);
+
+        TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> {
+                    switch (position) {
+                        case 0:
+                            tab.setIcon(R.drawable.pet_house_kennel_svgrepo_com);
+                            break;
+                        case 1:
+                            tab.setIcon(R.drawable.dog_svgrepo_com);
+                            break;
+                    }
+                }
+        );
+        mediator.attach();
+
+//        RecyclerView petRcv = findViewById(R.id.rcvPets);
+//        PetAdapter adapter = new PetAdapter();
+//        adapter.setList(dataset.get());
+//        adapter.setOnFavorite(dataset::addToFavorites);
+//        petRcv.setAdapter(adapter);
     }
 
     @Override
@@ -104,6 +127,13 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private List<Fragment> getFragmentsForViewPager() {
+        List<Fragment> list = new ArrayList<>(2);
+        list.add(PetListFragment.newInstance("", ""));
+        list.add(PetProfileFragment.newInstance("", ""));
+        return list;
     }
 
 }
