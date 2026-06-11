@@ -16,6 +16,7 @@
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:logo="@drawable/ic_pets"
             android:background="?attr/colorPrimary"
             app:menu="@menu/menu_options"
             app:title="@string/app_name" />
