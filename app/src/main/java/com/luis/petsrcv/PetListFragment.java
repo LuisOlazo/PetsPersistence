@@ -12,9 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.luis.petsrcv.bd.PetRepo;
+
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PetListFragment extends Fragment {
-    private final PetDataset dataset = PetDataset.getInstance();
+    private PetRepo petRepo;
+    private ExecutorService executorService;
 
     private PetListFragment() {
     }
@@ -26,6 +32,8 @@ public class PetListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        petRepo = MyApp.getInstance().getPetRepo();
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     @Override
@@ -38,9 +46,17 @@ public class PetListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         RecyclerView petRcv = view.findViewById(R.id.rcvPets);
         PetAdapter adapter = new PetAdapter();
-        adapter.setList(dataset.get());
-        adapter.setOnFavorite(dataset::addToFavorites);
-        petRcv.setAdapter(adapter);
+        adapter.setOnFavorite(petModel ->
+                executorService.execute(() -> petRepo.increasePetRating(petModel)));
+        executorService.execute(() -> {
+            List<PetModel> allPets = petRepo.getAllPets();
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(() -> {
+                    adapter.setList(allPets);
+                    petRcv.setAdapter(adapter);
+                });
+            }
+        });
         FloatingActionButton actionButton = view.findViewById(R.id.fabUp);
         actionButton.setOnClickListener(v -> petRcv.smoothScrollToPosition(0));
     }

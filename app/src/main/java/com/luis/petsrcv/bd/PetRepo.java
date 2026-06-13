@@ -34,7 +34,7 @@ public class PetRepo {
     }
 
     public void increasePetRating(PetModel petModel) {
-        int newRatting = petModel.getRating() + 1;
+        int newRatting = dao.getPetById(petModel.getId()).rating + 1;
         dao.updatePetRating(petModel.getId(), newRatting);
     }
 

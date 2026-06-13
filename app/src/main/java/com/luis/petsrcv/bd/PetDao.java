@@ -9,6 +9,9 @@ import java.util.List;
 @Dao
 public interface PetDao {
 
+    @Query("SELECT * FROM PetEntity WHERE pet_id = :petId")
+    PetEntity getPetById(int petId);
+
     @Query("SELECT * FROM PetEntity ORDER BY rating DESC LIMIT 5")
     List<PetEntity> getFiveMostFavoritePets();
 
