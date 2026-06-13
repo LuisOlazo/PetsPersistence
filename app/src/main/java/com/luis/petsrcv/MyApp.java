@@ -31,10 +31,6 @@ public class MyApp extends Application {
         return instance;
     }
 
-    public AppDatabase getAppDatabase() {
-        return appDatabase;
-    }
-
     public PetRepo getPetRepo() {
         return petRepo;
     }
