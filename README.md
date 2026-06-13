@@ -36,7 +36,8 @@ erDiagram
 
 ## Notas
 1. La función de aumentar rating o favoritos se actualiza solo al regresar otra vez a la pantalla de lista de todas las mascotas. Para efectos de simplicidad se dejo asi.
-2. Se mantuvo lo mas simple posible para no agregar mas librerias como RXjava para este entregable, a excepción de usar Room que simplifica mucho las cosas. Para ejecutar las operaciones de base de datos se uso ExecutorService.
-3. Para la pantalla de Perfil de Mascota aun se mantiene el código hardcodeado de la clase PetDataset, ya que las instrucciones no lo especifica.
-4. Para probar se debe desinstalar y volver a instalar.
-5. Version de Android Studio: Android Studio Narwhal | 2025.1.1
+2. No se implemento MVP, eso se dejo para los entregables de más adelante.
+3. Se mantuvo lo mas simple posible para no agregar mas librerias como RXjava para este entregable, a excepción de usar Room que simplifica mucho las cosas. Para ejecutar las operaciones de base de datos se uso ExecutorService.
+4. Para la pantalla de Perfil de Mascota aun se mantiene el código hardcodeado de la clase PetDataset, ya que las instrucciones no lo especifica.
+5. Para probar se debe desinstalar y volver a instalar.
+6. Version de Android Studio: Android Studio Narwhal | 2025.1.1
