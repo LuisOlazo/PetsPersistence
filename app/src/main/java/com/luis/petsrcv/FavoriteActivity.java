@@ -15,15 +15,23 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class FavoriteActivity extends AppCompatActivity {
+import com.luis.petsrcv.bd.PetRepo;
 
-    private final PetDataset dataset = PetDataset.getInstance();
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class FavoriteActivity extends AppCompatActivity {
+    private PetRepo petRepo;
+    private ExecutorService executorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_favorites);
+        petRepo = MyApp.getInstance().getPetRepo();
+        executorService = Executors.newSingleThreadExecutor();
         Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -38,10 +46,14 @@ public class FavoriteActivity extends AppCompatActivity {
 
         RecyclerView petRcv = findViewById(R.id.rcvFavoritePets);
         PetAdapter adapter = new PetAdapter();
-        adapter.setList(dataset.getFavoritePets());
+
+        executorService.execute(() -> {
+            List<PetModel> petList = petRepo.getFiveMostFavoritePets();
+            adapter.setList(petList);
+            petRcv.setAdapter(adapter);
+        });
         adapter.setOnFavorite(p ->
                 Toast.makeText(this, getString(R.string.msg_favorites), Toast.LENGTH_SHORT).show());
-        petRcv.setAdapter(adapter);
     }
 
     @Override
