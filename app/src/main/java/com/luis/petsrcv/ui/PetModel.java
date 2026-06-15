@@ -1,4 +1,4 @@
-package com.luis.petsrcv;
+package com.luis.petsrcv.ui;
 
 public class PetModel {
     private final int id;

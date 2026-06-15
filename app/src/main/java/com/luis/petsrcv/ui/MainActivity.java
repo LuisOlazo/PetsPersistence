@@ -1,4 +1,4 @@
-package com.luis.petsrcv;
+package com.luis.petsrcv.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,11 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputLayout;
-import com.luis.petsrcv.bd.PetRepo;
+import com.luis.petsrcv.EmailSender;
+import com.luis.petsrcv.R;
+import com.luis.petsrcv.ui.favorites.FavoriteActivity;
+import com.luis.petsrcv.ui.list.PetListFragment;
+import com.luis.petsrcv.ui.profile.PetProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;

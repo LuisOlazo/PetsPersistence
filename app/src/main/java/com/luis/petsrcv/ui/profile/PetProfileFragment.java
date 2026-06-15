@@ -1,4 +1,4 @@
-package com.luis.petsrcv;
+package com.luis.petsrcv.ui.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.luis.petsrcv.bd.PetDataset;
+import com.luis.petsrcv.R;
+import com.luis.petsrcv.ui.PetModel;
 
 import java.util.List;
 

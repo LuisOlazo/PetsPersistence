@@ -1,4 +1,4 @@
-package com.luis.petsrcv;
+package com.luis.petsrcv.ui.list;
 
 import android.os.Bundle;
 
@@ -12,7 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.luis.petsrcv.main.MyApp;
+import com.luis.petsrcv.R;
 import com.luis.petsrcv.bd.PetRepo;
+import com.luis.petsrcv.ui.PetAdapter;
+import com.luis.petsrcv.ui.PetModel;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

@@ -1,4 +1,4 @@
-package com.luis.petsrcv;
+package com.luis.petsrcv.main;
 
 import android.app.Application;
 

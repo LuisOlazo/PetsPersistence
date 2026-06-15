@@ -1,4 +1,4 @@
-package com.luis.petsrcv;
+package com.luis.petsrcv.ui;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

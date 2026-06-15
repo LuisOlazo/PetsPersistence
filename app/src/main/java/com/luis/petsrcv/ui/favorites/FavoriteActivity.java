@@ -1,4 +1,4 @@
-package com.luis.petsrcv;
+package com.luis.petsrcv.ui.favorites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.luis.petsrcv.ui.MainActivity;
+import com.luis.petsrcv.main.MyApp;
+import com.luis.petsrcv.R;
 import com.luis.petsrcv.bd.PetRepo;
+import com.luis.petsrcv.ui.PetAdapter;
+import com.luis.petsrcv.ui.PetModel;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

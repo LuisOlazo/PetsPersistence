@@ -1,4 +1,7 @@
-package com.luis.petsrcv;
+package com.luis.petsrcv.bd;
+
+import com.luis.petsrcv.ui.PetModel;
+import com.luis.petsrcv.R;
 
 import java.util.ArrayList;
 import java.util.Comparator;

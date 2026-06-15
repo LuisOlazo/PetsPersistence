@@ -1,6 +1,6 @@
 package com.luis.petsrcv.bd;
 
-import com.luis.petsrcv.PetModel;
+import com.luis.petsrcv.ui.PetModel;
 import com.luis.petsrcv.R;
 
 import java.util.List;
