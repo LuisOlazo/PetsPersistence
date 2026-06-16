@@ -46,17 +46,19 @@ public class PetRepo {
     }
 
     public void insertPreviousData() {
-        dao.insertAll(
-                new PetEntity(1, "Max", R.drawable.pet1, 3),
-                new PetEntity(2, "Luna", R.drawable.pet2, 4),
-                new PetEntity(3, "Rocky", R.drawable.pet3, 5),
-                new PetEntity(4, "Coco", R.drawable.pet4, 2),
-                new PetEntity(5, "Bella", R.drawable.pet5, 1),
-                new PetEntity(6, "Simba", R.drawable.pet6, 3),
-                new PetEntity(7, "Nina", R.drawable.pet7, 1),
-                new PetEntity(8, "Toby", R.drawable.pet8, 7),
-                new PetEntity(9, "Lola", R.drawable.pet9, 2),
-                new PetEntity(10, "Zeus", R.drawable.pet10, 6)
-        );
+        if (dao.getCount() == 0) {
+            dao.insertAll(
+                    new PetEntity(1, "Max", R.drawable.pet1, 3),
+                    new PetEntity(2, "Luna", R.drawable.pet2, 4),
+                    new PetEntity(3, "Rocky", R.drawable.pet3, 5),
+                    new PetEntity(4, "Coco", R.drawable.pet4, 2),
+                    new PetEntity(5, "Bella", R.drawable.pet5, 1),
+                    new PetEntity(6, "Simba", R.drawable.pet6, 3),
+                    new PetEntity(7, "Nina", R.drawable.pet7, 1),
+                    new PetEntity(8, "Toby", R.drawable.pet8, 7),
+                    new PetEntity(9, "Lola", R.drawable.pet9, 2),
+                    new PetEntity(10, "Zeus", R.drawable.pet10, 6)
+            );
+        }
     }
 }

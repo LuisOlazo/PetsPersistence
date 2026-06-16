@@ -24,4 +24,7 @@ public interface PetDao {
     @Query("UPDATE PetEntity SET rating = :newRating WHERE pet_id = :petId")
     void updatePetRating(int petId, int newRating);
 
+    @Query("SELECT COUNT(*) FROM PetEntity")
+    int getCount();
+
 }
