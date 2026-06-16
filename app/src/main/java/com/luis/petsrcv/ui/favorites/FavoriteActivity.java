@@ -18,25 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.luis.petsrcv.ui.MainActivity;
 import com.luis.petsrcv.main.MyApp;
 import com.luis.petsrcv.R;
-import com.luis.petsrcv.bd.PetRepo;
 import com.luis.petsrcv.ui.PetAdapter;
 import com.luis.petsrcv.ui.PetModel;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class FavoriteActivity extends AppCompatActivity {
-    private PetRepo petRepo;
-    private ExecutorService executorService;
+public class FavoriteActivity extends AppCompatActivity implements FavoritesContract.view {
+    PetAdapter adapter = new PetAdapter();
+    FavoritesContract.presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_favorites);
-        petRepo = MyApp.getInstance().getPetRepo();
-        executorService = Executors.newSingleThreadExecutor();
         Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -48,17 +44,10 @@ public class FavoriteActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        RecyclerView petRcv = findViewById(R.id.rcvFavoritePets);
-        PetAdapter adapter = new PetAdapter();
-
-        executorService.execute(() -> {
-            List<PetModel> petList = petRepo.getFiveMostFavoritePets();
-            adapter.setList(petList);
-            petRcv.setAdapter(adapter);
-        });
         adapter.setOnFavorite(p ->
                 Toast.makeText(this, getString(R.string.msg_favorites), Toast.LENGTH_SHORT).show());
+        presenter = new FavoritesPresenter(this, MyApp.getInstance().getPetRepo(), Executors.newSingleThreadExecutor());
+        presenter.getFavorites();
     }
 
     @Override
@@ -80,6 +69,13 @@ public class FavoriteActivity extends AppCompatActivity {
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void showFavorites(List<PetModel> list) {
+        RecyclerView petRcv = findViewById(R.id.rcvFavoritePets);
+        adapter.setList(list);
+        petRcv.setAdapter(adapter);
     }
 
 }
