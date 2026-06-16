@@ -18,8 +18,9 @@ import com.luis.petsrcv.ui.PetModel;
 
 import java.util.List;
 
-public class PetProfileFragment extends Fragment {
-    private final PetDataset dataset = PetDataset.getInstance();
+public class PetProfileFragment extends Fragment implements PetProfileContract.view {
+
+    PetProfileContract.presenter presenter;
 
     private PetProfileFragment() {
     }
@@ -31,6 +32,7 @@ public class PetProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new PetProfilePresenter(this, PetDataset.getInstance());
     }
 
     @Override
@@ -41,16 +43,23 @@ public class PetProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        List<PetModel> list = dataset.profilePet();
-        PetModel firstItem = list.get(0);
-        ImageView profileImage = view.findViewById(R.id.ivProfilePhoto);
-        TextView profileName = view.findViewById(R.id.tvPetName);
-        profileName.setText(firstItem.getName());
-        profileImage.setImageResource(firstItem.getImageResId());
-        RecyclerView rcvPetProfile = view.findViewById(R.id.rcvPetProfile);
-        PetProfileAdapter profileAdapter = new PetProfileAdapter();
-        profileAdapter.setList(dataset.profilePet());
-        rcvPetProfile.setAdapter(profileAdapter);
+        presenter.getProfile();
+    }
+
+    @Override
+    public void showProfile(List<PetModel> list) {
+        View view = getView();
+        if (view != null) {
+            PetModel firstItem = list.get(0);
+            ImageView profileImage = view.findViewById(R.id.ivProfilePhoto);
+            TextView profileName = view.findViewById(R.id.tvPetName);
+            profileName.setText(firstItem.getName());
+            profileImage.setImageResource(firstItem.getImageResId());
+            RecyclerView rcvPetProfile = view.findViewById(R.id.rcvPetProfile);
+            PetProfileAdapter profileAdapter = new PetProfileAdapter();
+            profileAdapter.setList(list);
+            rcvPetProfile.setAdapter(profileAdapter);
+        }
     }
 
 }
