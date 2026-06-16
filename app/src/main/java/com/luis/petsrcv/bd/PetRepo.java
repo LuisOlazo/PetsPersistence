@@ -33,9 +33,16 @@ public class PetRepo {
                 )).collect(Collectors.toList());
     }
 
-    public void increasePetRating(PetModel petModel) {
+    public PetModel increasePetRating(PetModel petModel) {
         int newRatting = dao.getPetById(petModel.getId()).rating + 1;
         dao.updatePetRating(petModel.getId(), newRatting);
+        PetEntity updatedItem = dao.getPetById(petModel.getId());
+        return new PetModel(
+                updatedItem.pet_id,
+                updatedItem.imageResId,
+                updatedItem.name,
+                updatedItem.rating
+        );
     }
 
     public void insertPreviousData() {

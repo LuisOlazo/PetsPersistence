@@ -12,19 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.luis.petsrcv.main.MyApp;
 import com.luis.petsrcv.R;
-import com.luis.petsrcv.bd.PetRepo;
+import com.luis.petsrcv.main.MyApp;
 import com.luis.petsrcv.ui.PetAdapter;
 import com.luis.petsrcv.ui.PetModel;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class PetListFragment extends Fragment {
-    private PetRepo petRepo;
-    private ExecutorService executorService;
+public class PetListFragment extends Fragment implements PetListContract.view {
+    PetAdapter adapter = new PetAdapter();
+    PetListContract.presenter presenter;
 
     private PetListFragment() {
     }
@@ -36,8 +34,7 @@ public class PetListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        petRepo = MyApp.getInstance().getPetRepo();
-        executorService = Executors.newSingleThreadExecutor();
+        presenter = new PetListPresenter(this, MyApp.getInstance().getPetRepo(), Executors.newSingleThreadExecutor());
     }
 
     @Override
@@ -49,20 +46,25 @@ public class PetListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         RecyclerView petRcv = view.findViewById(R.id.rcvPets);
-        PetAdapter adapter = new PetAdapter();
-        adapter.setOnFavorite(petModel ->
-                executorService.execute(() -> petRepo.increasePetRating(petModel)));
-        executorService.execute(() -> {
-            List<PetModel> allPets = petRepo.getAllPets();
-            if (getActivity() != null) {
-                getActivity().runOnUiThread(() -> {
-                    adapter.setList(allPets);
-                    petRcv.setAdapter(adapter);
-                });
-            }
-        });
+        adapter.setOnFavorite(petModel -> presenter.setRating(petModel));
         FloatingActionButton actionButton = view.findViewById(R.id.fabUp);
         actionButton.setOnClickListener(v -> petRcv.smoothScrollToPosition(0));
+        presenter.getList();
+    }
+
+    @Override
+    public void showList(List<PetModel> list) {
+        View view = getView();
+        if (view != null) {
+            RecyclerView petRcv = view.findViewById(R.id.rcvPets);
+            adapter.setList(list);
+            petRcv.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void showRating(PetModel item) {
+        if (getActivity() != null) getActivity().runOnUiThread(() -> adapter.updateItem(item));
     }
 
 }

@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.luis.petsrcv.R;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -26,6 +28,12 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
         this.onFavorite = onFavorite;
     }
 
+    public void updateItem(PetModel updatedItem) {
+        int pos = Collections.binarySearch(list, updatedItem, Comparator.comparingInt(PetModel::getId));
+        list.set(pos,updatedItem);
+        notifyItemChanged(pos);
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,10 +47,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
         PetModel item = list.get(position);
         holder.configViews(item);
         holder.imvFavorite.setOnClickListener(view -> {
-            if (position != RecyclerView.NO_POSITION) {
-                onFavorite.accept(item);
-                notifyItemChanged(holder.getAbsoluteAdapterPosition());
-            }
+            if (position != RecyclerView.NO_POSITION) onFavorite.accept(item);
         });
     }
 
@@ -70,4 +75,5 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
         }
 
     }
+
 }
